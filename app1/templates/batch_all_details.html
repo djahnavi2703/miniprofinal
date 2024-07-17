@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h2 align="center">BATCH MASTER UPDATE</h2>
+<table border="1" align="center">
+
+<tr>
+<th>BatchId</th>
+<th>BatchNo</th>
+<th>Operation</th>
+</tr>
+{% for i in data %}
+<tr>
+<td>{{i.batchid}}</td>
+<td>{{i.batchno}}</td>
+<td>
+<a href="{% url 'batch_edit' i.id %}">
+Edit
+</a>
+</td>
+</tr>
+
+{% endfor %}
+</table>
+<p align="center"><a href="{% url 'smms' %}"><button>Home</button></a></p>
+{% endblock %}

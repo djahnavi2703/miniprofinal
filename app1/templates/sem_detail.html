@@ -1,0 +1,9 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h2>{{ sem.sem }}</h2>
+<p> {{ sem.semid }}</p>
+<a href="{% url 'sem_edit' sem.id %}">Edit</a>
+{% endblock %}

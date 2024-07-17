@@ -1,0 +1,14 @@
+
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<form action="{% url 'process_batch_entry' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="submit">
+</form>
+<button><a href="{% url 'smms' %}">HOME</a></button>
+{% endblock %}
+

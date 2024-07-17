@@ -1,0 +1,177 @@
+from . models import StudentMaster
+class StudentMasterForm(forms.Form):
+    query = forms.CharField(label='Search6', max_length=100)
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model=StudentMaster
+        fields="__all__"
+
+class StudentMaster(models.Model):
+    studentname=models.CharField(max_length=40, validators=[alpha_validator])
+    course=models.ForeignKey(CourseMaster, on_delete=models.CASCADE, default=1)
+    sem=models.ForeignKey(SemMaster, on_delete=models.CASCADE, default=1)
+    studentregno=models.CharField(max_length=6, validators=[integer_validator])
+    batchid=models.ForeignKey(BatchMaster, on_delete=models.CASCADE,default=1)
+    def __str__(self):
+        return self.studentname
+
+path('search6/', views.student_search, name='search6'),
+    path('student_insert/',views.student_insert,name='student_insert'),
+    path('<id>/student_update/',views.student_update,name='student_update'),
+    path('display_student/',views.display_student,name='display_student'),
+    path('process_student_entry/',views.process_student_entry,name='process_student_entry'),
+    path('displaystudentinput/',views.displaystudentinput,name='displaystudentinput'),
+    path('delete3/<pk>',views.delete3,name='delete3'),
+    path('student_delete/',views.student_delete,name='student_delete'),
+
+def student_search(request):
+    if request.method == 'GET':
+        form = StudentMasterForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data.get('query')
+            results = StudentMaster.objects.filter(studentname=query)  
+        else:
+            results = None
+    else:
+        form = StudentMasterForm()
+        results = None
+    
+    return render(request, 'student_search.html', {'form': form, 'results': results})
+def display_student(request):
+    allstudent=StudentMaster.objects.all().values()
+    temp=loader.get_template("student_master.html")
+    context={
+        'data':allstudent
+    }
+    return HttpResponse(temp.render(context,request))
+def student_insert(request):
+    context={}
+    context['form']=StudentForm()
+    return render(request,"student_insert.html",context)
+def process_student_entry(request):
+    if request.method=='POST':
+        studentname_inp=request.POST.get('studentname')
+        studentregno_inp=int(request.POST.get('studentregno'))
+        ob=StudentMaster(studentname=studentname_inp,studentregno=studentregno_inp)
+        ob.save()
+        return HttpResponse("DATA SUCCESSFULLY INSERTED")
+    else:
+        return HttpResponse("INVALID REQUEST")
+def displaystudentinput(request):
+    return render(request,"student_entry.html")
+def student_update(request, id):
+    context ={}
+    obj = get_object_or_404(StudentMaster, id = id)
+    form = StudentForm(request.POST or None, instance = obj)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect("/app1/display_student/") 
+    context["form"] = form 
+    return render(request, "student_update.html", context)
+def delete3(request,pk):
+    StudentMaster.objects.get(id=pk).delete()
+    return HttpResponseRedirect("/app1/display_student/")
+def student_delete(request):
+    allstudent=StudentMaster.objects.all().values()
+    temp=loader.get_template("student_delete.html")
+    context ={
+        'data':allstudent
+        }
+    return HttpResponse(temp.render(context,request))
+
+from .models import StudentMaster
+admin.site.register(StudentMaster)
+
+
+		TRANSACTION
+
+from . models import Transaction
+class TransactionMasterForm(forms.Form):
+    query = forms.CharField(label='Search7', max_length=100)
+class TransactionForm(forms.ModelForm):
+    class Meta:
+        model=Transaction
+        fields="__all__"
+
+from .models import Transaction
+admin.site.register(Transaction)
+
+
+def transaction_search(request):
+    if request.method == 'GET':
+        form = TransactionMasterForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data.get('query')
+            results = Transaction.objects.filter(course=query)  
+        else:
+            results = None
+    else:
+        form = TransactionMasterForm()
+        results = None
+    
+    return render(request, 'transaction_search.html', {'form': form, 'results': results})
+def display_transaction(request):
+    alltran=Transaction.objects.all().values()
+    temp=loader.get_template("transaction_master.html")
+    context={
+        'data':alltran
+    }
+    return HttpResponse(temp.render(context,request))
+def transaction_insert(request):
+    context={}
+    context['form']=TransactionForm()
+    return render(request,"transaction_insert.html",context)
+def process_transaction_entry(request):
+    if request.method=='POST':
+        marks_inp=int(request.POST.get('marks'))
+        ob=Transaction(marks=marks_inp)
+        ob.save()
+        return HttpResponse("DATA SUCCESSFULLY INSERTED")
+    else:
+        return HttpResponse("INVALID REQUEST")
+def displaytransactioninput(request):
+    return render(request,"transaction_entry.html")
+def transaction_update(request, id):
+    context ={}
+    obj = Transaction.objects.get(id=id)
+    form = TransactionForm(request.POST, instance = obj)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect("/app1/display_transaction/")
+    else:
+        form=TransactionForm(instance=obj)
+        return render(request,'transaction_insert.html',{'form':form})
+def delete7(request,pk):
+    Transactino.objects.get(id=pk).delete()
+    return HttpResponseRedirect("/app1/display_transaction/")
+def transaction_delete(request):
+    alltransaction=Transaction.objects.all().values()
+    temp=loader.get_template("transaction_delete.html")
+    context ={
+        'data':alltransaction
+        }
+    return HttpResponse(temp.render(context,request))
+
+path('search7/', views.transaction_search, name='search7'),
+    path('transaction_insert/',views.transaction_insert,name='transaction_insert'),
+    path('<id>/transaction_update/',views.transaction_update,name='transaction_update'),
+    path('display_transaction/',views.display_transaction,name='display_transaction'),
+    path('process_transaction_entry/',views.process_transaction_entry,name='process_transaction_entry'),
+    path('displaytransactioninput/',views.displaytransactioninput,name='displaytransactioninput'),
+    path('delete7/<pk>',views.delete7,name='delete7'),
+    path('transaction_delete/',views.transaction_delete,name='transaction_delete'),
+
+class Transaction(models.Model):
+    course=models.ForeignKey(CourseMaster,on_delete=models.CASCADE,default=1)
+    batchid=models.ForeignKey(BatchMaster,on_delete=models.CASCADE,default=1)
+    sem=models.ForeignKey(SemMaster,on_delete=models.CASCADE,default=1)
+    examtype=models.ForeignKey(ExamMaster,on_delete=models.CASCADE,default=1)
+    #studentregno=models.ForeignKey(StudentMaster,on_delete=models.CASCADE,default=1)
+    studentname=models.ForeignKey(StudentMaster,on_delete=models.CASCADE,default=1)
+    papercode=models.ForeignKey(PaperMaster,on_delete=models.CASCADE,default=1)
+    #papername=models.ForeignKey(PaperMaster,on_delete=models.CASCADE,default=1)
+    marks=models.CharField(max_length=3, validators=[integer_validator])
+    def __str__(self):
+        return self.studentname
+    
+

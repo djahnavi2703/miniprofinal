@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+          <h2 align="center">PAPER MASTER VIEW</h2>
+        <table border="1" align="center">
+            <tr>
+                <th>PaperName</th>
+                <th>PaperCode</th>
+		<th>PaperType</th>
+                <th>PaperSheetName</th>
+            </tr>
+            {% for x in data %}
+            <tr>
+                <td>{{ x.papername }}</td>
+                <td>{{ x.papercode }}</td>
+		<td>{{ x.papertype }}</td>
+                <td>{{ x.papersheetname }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+<p align="center"><a href="{% url 'smms' %}"><button>HOME</button></a></p>
+{% endblock %}

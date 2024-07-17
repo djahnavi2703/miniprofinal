@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <title>Create Batch</title>
+  </head>
+  <body>
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+    <h1>Create Batch</h1>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input type="submit" value="Save">
+    </form>
+<button><a href="{% url 'smms' %}">HOME</a></button>
+{% endblock %}
+  </body>
+</html>

@@ -1,0 +1,31 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+    <h2 align="center">SEMESTER MASTER SEARCH</h2>  
+    <form method="get" align="center">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if results %}
+        <h3 align="center">Results:</h3>
+       
+            {% for x in results %}
+<table border="1" align="center">
+<tr>
+<th>Sem</th>
+<th>SemId</th>
+</tr>
+<tr>
+                <td>{{ x.sem }}</td>  
+	        <td>{{ x.semid }}</td>
+</tr>
+</table> 
+            {% endfor %}
+        
+    {% endif %}
+
+<p align="center"><a href="{% url 'smms' %}"><button>Home</button></a></p>
+{% endblock %}

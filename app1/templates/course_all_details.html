@@ -1,0 +1,28 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h2 align="center">COURSE MASTER UPDATE</h2>
+<table border="1" align="center">
+
+<tr>
+<th>Course</th>
+<th>CourseId</th>
+<th>Operation</th>
+</tr>
+{% for i in data %}
+<tr>
+<td>{{i.course}}</td>
+<td>{{i.courseid}}</td>
+<td>
+<a href="{% url 'course_edit' i.id %}">
+Edit
+</a>
+</td>
+</tr>
+
+{% endfor %}
+</table>
+<p align="center"><a href="{% url 'smms' %}"><button>Home</button></a></p>
+{% endblock %}

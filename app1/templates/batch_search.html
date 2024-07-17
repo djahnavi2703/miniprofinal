@@ -1,0 +1,30 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+      <h2 align="center">BATCH MASTER SEARCH</h2>  
+<form method="get" align="center">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if results %}
+        <h3 align="center">Results:</h3>
+
+            {% for item in results %}
+<table border="1" align="center">
+<tr>
+<th>BatchNo</th>
+<th>BatchId</th>
+</tr>
+<tr>
+            <td>{{ item.batchno }}</td>  
+	    <td>{{ item.batchid }}</td> 
+</tr>
+</table>
+            {% endfor %}
+</ul>
+    {% endif %}
+<p align="center"><a href="{% url 'smms' %}"><button>Home</button></p></a>
+{% endblock %}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+{% extends "master.html" %}
+{% block title %}
+<h3 align="center">Master Of Computer Applications<p>
+{% endblock %}
+{% block content %}
+<head>
+    <script typr="text/javascript">
+        function show_confirm()
+        {
+var r=confirm("Please! check given data");
+if (r==true)
+  {
+  alert("confirm!");
+  }
+else
+  {
+  alert(" Canceled!");
+  }
+}
+
+    </script>
+</head>
+<html lang="en">
+<head>
+<title>EXAM MASTER INSERTION</title></head>
+<body>
+<h2 align="center"><u>EXAM MASTER INSERTION</u></h2>
+        <h3 align="center">Please enter exam details</h3>
+        <form method="post" action="{% url 'process_exam_entry' %}">
+            {% csrf_token %}
+                <p align="center"><label for="examid">Exam_ID:</label>
+                <input type="text" name="examid" required><p>
+                <p align="center"><label for="examtype">Exam_Type :</label>
+                <input type="text" name="examtype" required></p>
+                <p align="center"><button type="submit" onclick="show_confirm()">SUBMIT</button>&nbsp;&nbsp;&nbsp;&nbsp;<button><a href="{% url 'display_exam' %}">Cancel</a></button>&nbsp;&nbsp;&nbsp;&nbsp;<button><a href="{% url 'smms' %}">HOME</a></button></p>
+            </table>
+        </form>
+{% endblock %}
+    </body>
+</html>

@@ -1,0 +1,24 @@
+{% extends 'master.html' %}
+{% block content %}
+<h2 align="center"><font color="OLIVE">UPDATE EMPLOYEE MASTER</font></h2>
+<form action="{% url 'updat_employee' %}">
+<table border="1" align="center" style="background-color:lightgrey;">
+            <tr style="font-size:20px;">
+		 <th>FirstName</th>
+                  <th>LastName</th>
+		<th>Mobile</th>
+		<th>Email</th> 
+		<th>Edit</th>              
+            </tr>
+            {% for x in data %}
+            <tr style="font-size:16px;">
+		<td>{{ x.first_name }}</td>
+                <td>{{ x.last_name }}</td> 
+		<td>{{ x.mobile }}</td>
+		<td>{{ x.email }}</td>
+		<td><a href="{% url 'update_employee' pk=x.id %}">Edit</a></td>
+            </tr>
+      		{% endfor %}
+</table>
+<p align="center"><button><a href="{% url 'smms' %}">HOME</a></button></p>
+{% endblock %}

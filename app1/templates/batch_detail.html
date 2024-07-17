@@ -1,0 +1,9 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h2>{{ batch.batchid }}</h2>
+<p> {{ batch.batchno }}</p>
+<a href="{% url 'batch_edit' batch.id %}">Edit</a>
+{% endblock %}

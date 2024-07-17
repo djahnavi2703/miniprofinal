@@ -1,0 +1,11 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h2>{{ paper.papername }}</h2>
+<p> {{ paper.papercode }}</p>
+<p> {{ paper.papertype }}</p>
+<p> {{ paper.papersheetname }}</p>
+<a href="{% url 'paper_edit' paper.id %}">Edit</a>
+{% endblock %}

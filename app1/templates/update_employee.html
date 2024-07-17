@@ -1,0 +1,10 @@
+{% extends "master.html" %}
+{% block content %}
+<h2>Update Employee</h2>
+<form method="post">
+{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Save Changes</button>
+</form>
+<p align="center"><button><a href="{% url 'smms' %}">HOME</a></button></p>
+{% endblock %}

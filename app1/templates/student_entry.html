@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+{% extends "master.html" %}
+{% block title %}
+<h3 align="center">Master Of Computer Applications<p>
+{% endblock %}
+{% block content %}
+<head>
+    <script typr="text/javascript">
+        function show_confirm()
+        {
+var r=confirm("Please! check given data");
+if (r==true)
+  {
+  alert("confirm!");
+  }
+else
+  {
+  alert(" Canceled!");
+  }
+}
+
+    </script>
+</head>
+<html lang="en">
+<head>
+<title>STUDENT MASTER INSERTION</title></head>
+<body>
+<h2 align="center"><u>STUDENT MASTER INSERTION</u></h2>
+<form method="post" action="{% url 'process_student_entry' %}" enctype="multipart/form-data" align="center">
+{% csrf_token %}
+{{ form.as_p }}
+<label for="studentname">StudentName:</label>
+<input type="text" name="studentname" required>
+<br/>
+<br/>
+<label for="studentregno">StudentRegNo:</label>
+<input type="text" name="studentregno" required>
+<br/>
+<br/>
+<label for="course">Course:</label>
+<input type="text" name="course" required>
+<br/>
+<br/>
+<label for="sem">Sem:</label>
+<input type="text" name="sem" required>
+<br/>
+<br/>
+<label for="batchid">BatchId:</label>
+<input type="text" name="batchid" required>
+<br/>
+<br/>
+<p align="center"><button><a href="{% url 'smms' %}">Home</a></button>&nbsp;&nbsp;&nbsp;<button type="submit" onclick="show_confirm()" >Submit</button>&nbsp;&nbsp;&nbsp;&nbsp;
+<button><a href="{% url 'smms' %}">Cancel</a></button></p>
+
+</form>
+{% endblock %}
+</body>
+</html>

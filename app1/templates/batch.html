@@ -1,0 +1,16 @@
+<html>
+<body>
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h1>Batch</h1>
+<ul>
+{% for x in allbatch %}
+<li> {{ x.batchid }} {{ x.batchno }} </li>
+{% endfor %}
+</ul>
+{% endblock %}
+</body>
+</html>

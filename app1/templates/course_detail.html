@@ -1,0 +1,9 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+<h2>{{ course.course }}</h2>
+<p> {{ course.courseid }}</p>
+<a href="{% url 'course_edit' course.id %}">Edit</a>
+{% endblock %}

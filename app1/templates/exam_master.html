@@ -1,0 +1,20 @@
+{% extends "master.html" %}
+    {% block title %}
+    HomePage
+{% endblock %}
+{% block content %}
+         <h2 align="center">EXAM MASTER VIEW</h2>
+        <table border="1" align="center">
+            <tr>
+                <th>ExamId</th>
+                <th>ExamType</th>
+            </tr>
+            {% for x in data %}
+            <tr>
+                <td>{{ x.examid }}</td>
+                <td>{{ x.examtype }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+<p align="center"><a href="{% url 'smms' %}"><button>HOME</button></a></p>
+  {% endblock %}

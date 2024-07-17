@@ -1,0 +1,99 @@
+
+
+Assumptions:
+from django.db import models
+class User(models.Model):
+    # username field
+    username = models.CharField(max_length=30, blank=False)
+    # password field
+    password = models.CharField(max_length=8, blank=False)
+
+    def __str__(self):
+        return self.username
+
+#Search in Django
+Implementing a search operation in Django involves :
+capturing user input,
+ querying the database based on that input, and 
+displaying the results. 
+Task: create a basic search functionality in Django:
+
+1. Create a Search Form
+First, create a form that allows users to input their search query.
+
+# forms.py
+from django import forms
+
+class SearchForm(forms.Form):
+    query = forms.CharField(label='Search', max_length=100)
+
+2. Create a View to Handle the Search
+create a view that processes the search query and displays the results.
+# views.py
+from django.shortcuts import render
+from .models import User
+from .forms import SearchForm
+
+def search_view(request):
+    if request.method == 'GET':
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            query = form.cleaned_data.get('query')
+            results = User.objects.filter(username=query)  
+        else:
+            results = None
+    else:
+        form = SearchForm()
+        results = None
+    
+    return render(request, 'search_results.html', {'form': form, 'results': results})
+
+3. Create a Template to Display Search Results
+Create an HTML template that displays the search form and the search results.
+
+search_results.html
+<!-- search_results.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search</h1>
+    <form method="get">
+        {{ form.as_p }}
+        <button type="submit">Search</button>
+    </form>
+    
+    {% if results %}
+        <h2>Results:</h2>
+        <ul>
+            {% for item in results %}
+                <li>{{ item.username }}</li>  
+	<li>{{ item.password }}</li> 
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+
+4. Define URLs
+Define a URL pattern in your urls.py to map the search view.
+# urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('search/', views.search_view, name='search'),
+   
+]
+
+Explanation
+forms.py: Defines a simple form SearchForm with a single field query for user input.
+urls.py: Maps the /search/ URL to the search_view function.
+views.py: Implements a search_view that:
+Processes GET requests with the search form data.
+Validates the form data.
+Filters YourModel objects based on the search query using contents for a case-insensitive search.
+search_results.html: Displays the search form and, if there are results, lists them.
+
